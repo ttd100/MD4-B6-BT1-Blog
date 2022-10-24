@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<div style="display: grid; grid-template-columns: 70% auto">
+    <div>
+        <h3>List blog</h3>
+        <table th:each="row : ${blogList}">
+            <tr>
+                <td>
+                    <h4 th:text="${row.title}" style="margin: 0"></h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h5 th:text="${row.author}" style="margin: 0"></h5>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p th:text="${row.content}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a th:href="@{/edit/__${row.id}__}">Edit</a>
+                </td>
+                <td>
+                    <a th:href="@{/delete/__${row.id}__}">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div>
+        <h3>Upload a blog</h3>
+        <form action="/create" method="post" th:object="${blogForm}">
+            <table>
+                <tr>
+                    <td>Title</td>
+                    <td><input type="text" th:field="*{title}"></td>
+                </tr>
+                <tr>
+                    <td>Author</td>
+                    <td><input type="text" th:field="*{author}"></td>
+                </tr>
+                <tr>
+                    <td>Content</td>
+                    <td><textarea th:field="*{content}"></textarea></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Post"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>
